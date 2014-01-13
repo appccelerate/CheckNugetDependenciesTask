@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">$(MSBuildProjectDirectory)..\</SolutionDir>
+        <CheckNugetDependenciesTask_Enabled Condition="$(CheckNugetDependenciesTask_Enabled) == ''">true</CheckNugetDependenciesTask_Enabled>
+    </PropertyGroup>
+
+    <UsingTask
+      TaskName="CheckNugetDependenciesTask"
+      AssemblyFile="$(MSBuildThisFileDirectory)..\CheckNugetDependenciesTask.dll" />
+
+    <Target Name="AfterBuild">
+        <CheckNugetDependenciesTask
+            Condition="'$(Configuration)' == 'Release' And $(CheckNugetDependenciesTask_Enabled) == true"
+            NuspecFileFullPath="$(CheckNugetDependenciesTask_NuspecFileFullPath)" 
+            ProjectFileFullPath="$(CheckNugetDependenciesTask_ProjectFileFullPath)" />
+    </Target>
+</Project>
+
+
