@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckNugetDependenciesTask", "CheckNugetDependenciesTask\CheckNugetDependenciesTask.csproj", "{17E4967A-2BC3-4795-8846-95D3F3028B51}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appccelerate.CheckNugetDependenciesTask", "Appccelerate.CheckNugetDependenciesTask\Appccelerate.CheckNugetDependenciesTask.csproj", "{17E4967A-2BC3-4795-8846-95D3F3028B51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckNugetDependenciesTask.Facts", "CheckNugetDependenciesTask.Facts\CheckNugetDependenciesTask.Facts.csproj", "{DDE2A7DC-997E-4A70-BFA3-953143ECC2AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appccelerate.CheckNugetDependenciesTask.Facts", "Appccelerate.CheckNugetDependenciesTask.Facts\Appccelerate.CheckNugetDependenciesTask.Facts.csproj", "{DDE2A7DC-997E-4A70-BFA3-953143ECC2AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -7,8 +7,8 @@
     <ProjectGuid>{17E4967A-2BC3-4795-8846-95D3F3028B51}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CheckNugetDependenciesTask</RootNamespace>
-    <AssemblyName>CheckNugetDependenciesTask</AssemblyName>
+    <RootNamespace>Appccelerate.CheckNugetDependenciesTask</RootNamespace>
+    <AssemblyName>Appccelerate.CheckNugetDependenciesTask</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

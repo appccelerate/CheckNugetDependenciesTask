@@ -17,8 +17,8 @@
     <dependencies/>	
   </metadata>
   <files>
-    <file src="CheckNugetDependenciesTask\bin\Release\CheckNugetDependenciesTask.dll" target="" />
-    <file src="CheckNugetDependenciesTask\bin\Release\CheckNugetDependenciesTask.pdb" target="" />
+    <file src="Appccelerate.CheckNugetDependenciesTask\bin\Release\Appccelerate.CheckNugetDependenciesTask.dll" target="" />
+    <file src="Appccelerate.CheckNugetDependenciesTask\bin\Release\Appccelerate.CheckNugetDependenciesTask.pdb" target="" />
     <file src="Appccelerate.CheckNugetDependenciesTask.targets" target="build" />
   </files>  
 </package>
