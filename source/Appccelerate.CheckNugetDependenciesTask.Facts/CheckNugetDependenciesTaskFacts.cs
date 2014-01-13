@@ -59,7 +59,7 @@ namespace CheckNugetDependenciesTask
                         .AddFrameworkReference("System")
                         .AddFrameworkReference("System.Core")
                     .WithNugetReferences()
-                        .AddNugetReference("Appccelerate.Fundamentals", "1.5.3")
+                        .AddNugetReference("Appccelerate.Fundamentals")
                 .Build();
 
             this.testee.Files.Add(NuspecFileFullPath, nuspec);
@@ -82,8 +82,8 @@ namespace CheckNugetDependenciesTask
             XDocument project = ProjectBuilder
                 .Create()
                     .WithNugetReferences()
-                        .AddNugetReference("Appccelerate.Fundamentals", "1.5.3")
-                        .AddNugetReference("Ninject", "3.4.5")
+                        .AddNugetReference("Appccelerate.Fundamentals")
+                        .AddNugetReference("Ninject")
                 .Build();
 
             this.testee.Files.Add(NuspecFileFullPath, nuspec);

@@ -26,6 +26,11 @@ namespace CheckNugetDependenciesTask
     {
         public VersionCheckerResult MatchVersion(string referenceVersion, string nugetVersion)
         {
+            if (string.IsNullOrEmpty(referenceVersion))
+            {
+                return VersionCheckerResult.CreateSuccessful();
+            }
+
             Regex regex = new Regex(@"\[(?<from>.*),(?<to>.*)\)");
 
             var match = regex.Match(nugetVersion);

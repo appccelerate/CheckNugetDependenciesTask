@@ -56,6 +56,15 @@ namespace CheckNugetDependenciesTask
             return this;
         }
 
+        public INugetReferences AddNugetReference(string id)
+        {
+            this.references.Add(
+                "<Reference Include=\"" + id + "\">\n\r" +
+                @"<SpecificVersion>False</SpecificVersion>
+    </Reference>");
+            return this;
+        }
+
         public XDocument Build()
         {
             return XDocument.Parse(
@@ -146,6 +155,8 @@ namespace CheckNugetDependenciesTask
 
     public interface INugetReferences : IProjectBuilder
     {
+        INugetReferences AddNugetReference(string id);
+
         INugetReferences AddNugetReference(string id, string version);
     }
 }
