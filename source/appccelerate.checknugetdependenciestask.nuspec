@@ -1,0 +1,24 @@
+﻿<?xml version="1.0"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>Appccelerate.CheckNugetDependenciesTask</id>
+    <version>0.0.0</version>
+    <title>Appccelerate.CheckNugetDependenciesTask</title>
+    <authors>Appccelerate team</authors>
+    <owners>Appccelerate team</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+    <projectUrl>https://github.com/appccelerate/checknugetdependenciestask</projectUrl>
+    <iconUrl>https://github.com/appccelerate/appccelerate/raw/master/docs/nuget.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <summary>MSBuild task checking whether references in nuspec file are correct.</summary>
+    <description>MSBuild task checking whether references in nuspec file are correct.</description>
+    <copyright>Copyright 2012-2014</copyright>
+    <tags>Appccelerate</tags>
+    <dependencies/>	
+  </metadata>
+  <files>
+    <file src="Appccelerate.CheckNugetDependenciesTask\bin\Release\Appccelerate.CheckNugetDependenciesTask.dll" target="" />
+    <file src="Appccelerate.CheckNugetDependenciesTask\bin\Release\Appccelerate.CheckNugetDependenciesTask.pdb" target="" />
+    <file src="Appccelerate.CheckNugetDependenciesTask.targets" target="build" />
+  </files>  
+</package>
