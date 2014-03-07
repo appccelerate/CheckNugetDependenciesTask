@@ -10,7 +10,7 @@
       $(MSBuildProjectDirectory)..\..\$(MSBuildProjectName).nuspec
     </CheckNugetDependenciesTask_NuspecFileFullPath>
     <CheckNugetDependenciesTask_PackagesConfigFullPath Condition="$(CheckNugetDependenciesTask_PackagesConfigFullPath) == ''">
-      $(MSBuildProjectDirectory)packages.config
+      $(MSBuildProjectDirectory)\packages.config
     </CheckNugetDependenciesTask_PackagesConfigFullPath>
   </PropertyGroup>
 
