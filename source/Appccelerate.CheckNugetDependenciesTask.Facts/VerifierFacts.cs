@@ -70,6 +70,27 @@ namespace Appccelerate.CheckNugetDependenciesTask
         }
 
         [Fact]
+        public void IgnoresDevelopmentDependencies()
+        {
+            XDocument nuspec = NuspecBuilder
+                .Create()
+                .Build();
+
+            XDocument project = ProjectBuilder
+                .Create()
+                .Build();
+
+            XDocument packagesConfig = PackageConfigBuilder
+                .Create()
+                    .AddDevelopmentReference("Appccelerate.Development", "1.0")
+                .Build();
+
+            IEnumerable<Violation> result = this.testee.Verify(project, nuspec, packagesConfig);
+
+            result.Should().BeEmpty();
+        }
+
+        [Fact]
         public void Fails_WhenANugetDependencyIsMissingInNuspecFile()
         {
             XDocument nuspec = NuspecBuilder
