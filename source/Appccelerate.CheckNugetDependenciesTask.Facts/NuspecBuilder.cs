@@ -15,7 +15,7 @@
 //    limitations under the License.
 //  </copyright>
 // -------------------------------------------------------------------------------
-namespace CheckNugetDependenciesTask
+namespace Appccelerate.CheckNugetDependenciesTask
 {
     using System;
     using System.Collections.Generic;

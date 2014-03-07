@@ -16,7 +16,7 @@
 // </copyright>
 //-------------------------------------------------------------------------------
 
-namespace CheckNugetDependenciesTask
+namespace Appccelerate.CheckNugetDependenciesTask
 {
     using System;
     using System.Linq;

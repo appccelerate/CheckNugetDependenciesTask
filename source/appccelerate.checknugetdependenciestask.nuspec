@@ -14,6 +14,7 @@
     <description>MSBuild task checking whether references in nuspec file are correct.</description>
     <copyright>Copyright 2012-2014</copyright>
     <tags>Appccelerate</tags>
+    <developmentDependency>true</developmentDependency>
     <dependencies/>	
   </metadata>
   <files>

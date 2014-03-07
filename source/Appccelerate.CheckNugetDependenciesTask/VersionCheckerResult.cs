@@ -16,17 +16,21 @@
 // </copyright>
 //-------------------------------------------------------------------------------
 
-namespace CheckNugetDependenciesTask
+namespace Appccelerate.CheckNugetDependenciesTask
 {
     public class VersionCheckerResult
     {
+        private VersionCheckerResult()
+        {
+        }
+
         public bool Success { get; private set; }
 
         public string ErrorMessage { get; private set; }
 
         public static VersionCheckerResult CreateSuccessful()
         {
-            return new VersionCheckerResult()
+            return new VersionCheckerResult
                        {
                            Success = true,
                            ErrorMessage = null
@@ -35,7 +39,7 @@ namespace CheckNugetDependenciesTask
 
         public static VersionCheckerResult CreateFailed(string errorMessage)
         {
-            return new VersionCheckerResult()
+            return new VersionCheckerResult
                        {
                            Success = false,
                            ErrorMessage = errorMessage

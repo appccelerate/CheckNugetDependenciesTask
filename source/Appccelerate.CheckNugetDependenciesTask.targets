@@ -1,20 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <PropertyGroup>
-        <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">$(MSBuildProjectDirectory)..\</SolutionDir>
-        <CheckNugetDependenciesTask_Enabled Condition="$(CheckNugetDependenciesTask_Enabled) == ''">true</CheckNugetDependenciesTask_Enabled>
-    </PropertyGroup>
+  <PropertyGroup>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">$(MSBuildProjectDirectory)..\</SolutionDir>
+    <CheckNugetDependenciesTask_Enabled Condition="$(CheckNugetDependenciesTask_Enabled) == ''">true</CheckNugetDependenciesTask_Enabled>
+    <CheckNugetDependenciesTask_ProjectFileFullPath Condition="$(CheckNugetDependenciesTask_ProjectFileFullPath) == ''">
+      $(MSBuildProjectFullPath)
+    </CheckNugetDependenciesTask_ProjectFileFullPath>
+    <CheckNugetDependenciesTask_NuspecFileFullPath Condition="$(CheckNugetDependenciesTask_NuspecFileFullPath) == ''">
+      $(MSBuildProjectDirectory)..\..\$(MSBuildProjectName).nuspec
+    </CheckNugetDependenciesTask_NuspecFileFullPath>
+    <CheckNugetDependenciesTask_PackagesConfigFullPath Condition="$(CheckNugetDependenciesTask_PackagesConfigFullPath) == ''">
+      $(MSBuildProjectDirectory)\packages.config
+    </CheckNugetDependenciesTask_PackagesConfigFullPath>
+  </PropertyGroup>
 
-    <UsingTask
-      TaskName="CheckNugetDependenciesTask"
-      AssemblyFile="$(MSBuildThisFileDirectory)..\Appccelerate.CheckNugetDependenciesTask.dll" />
+  <UsingTask
+    TaskName="CheckNugetDependenciesTask"
+    AssemblyFile="$(MSBuildThisFileDirectory)..\Appccelerate.CheckNugetDependenciesTask.dll" />
 
-    <Target Name="AfterBuild">
-        <CheckNugetDependenciesTask
-            Condition="'$(Configuration)' == 'Release' And $(CheckNugetDependenciesTask_Enabled) == true"
-            NuspecFileFullPath="$(CheckNugetDependenciesTask_NuspecFileFullPath)" 
-            ProjectFileFullPath="$(CheckNugetDependenciesTask_ProjectFileFullPath)" />
-    </Target>
+  <Target Name="AfterBuild">
+    <CheckNugetDependenciesTask
+        Condition="'$(Configuration)' == 'Release' And $(CheckNugetDependenciesTask_Enabled) == true"
+        NuspecFileFullPath="$(CheckNugetDependenciesTask_NuspecFileFullPath)"
+        ProjectFileFullPath="$(CheckNugetDependenciesTask_ProjectFileFullPath)"
+        PackagesConfigFullPath="$(CheckNugetDependenciesTask_PackagesConfigFullPath)"/>
+  </Target>
 </Project>
 
 
