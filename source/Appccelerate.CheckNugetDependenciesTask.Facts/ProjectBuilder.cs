@@ -15,7 +15,7 @@
 //    limitations under the License.
 //  </copyright>
 // -------------------------------------------------------------------------------
-namespace CheckNugetDependenciesTask
+namespace Appccelerate.CheckNugetDependenciesTask
 {
     using System;
     using System.Collections.Generic;
@@ -59,9 +59,7 @@ namespace CheckNugetDependenciesTask
         public INugetReferences AddNugetReference(string id)
         {
             this.references.Add(
-                "<Reference Include=\"" + id + "\">\n\r" +
-                @"<SpecificVersion>False</SpecificVersion>
-    </Reference>");
+                "<Reference Include=\"" + id + "\" ><HintPath /></Reference>\n\r");
             return this;
         }
 
@@ -102,8 +100,10 @@ namespace CheckNugetDependenciesTask
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>" +
-                this.references.Aggregate((a, b) => a + Environment.NewLine + b) +
-                @"</ItemGroup>
+               (this.references.Any()
+               ? this.references.Aggregate((a, b) => a + Environment.NewLine + b)
+               : string.Empty) +
+@"</ItemGroup>
   <ItemGroup>
     <Compile Include=""AbsoluteFilePath.cs"" />
   </ItemGroup>
