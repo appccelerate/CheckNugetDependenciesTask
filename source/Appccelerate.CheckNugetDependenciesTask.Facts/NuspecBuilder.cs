@@ -1,20 +1,21 @@
-﻿// -------------------------------------------------------------------------------
-//  <copyright file="NuspecBuilder.cs" company="Appccelerate">
-//    Copyright (c) 2008-2014
-// 
-//    Licensed under the Apache License, Version 2.0 (the "License");
-//    you may not use this file except in compliance with the License.
-//    You may obtain a copy of the License at
-// 
-//        http://www.apache.org/licenses/LICENSE-2.0
-// 
-//    Unless required by applicable law or agreed to in writing, software
-//    distributed under the License is distributed on an "AS IS" BASIS,
-//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//    See the License for the specific language governing permissions and
-//    limitations under the License.
-//  </copyright>
-// -------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="NuspecBuilder.cs" company="Appccelerate">
+//   Copyright (c) 2008-2014
+//
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace Appccelerate.CheckNugetDependenciesTask
 {
     using System;
@@ -69,12 +70,12 @@ namespace Appccelerate.CheckNugetDependenciesTask
     <projectUrl>https://github.com/appccelerate/io</projectUrl>
     <iconUrl>https://github.com/appccelerate/appccelerate/raw/master/docs/nuget.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-	<summary>Evaluation of rules, computations, validations and much more.</summary>
+    <summary>Evaluation of rules, computations, validations and much more.</summary>
     <description>description</description>
-	<releaseNotes>notes</releaseNotes>
+    <releaseNotes>notes</releaseNotes>
     <copyright>Copyright 2012-2014</copyright>
     <tags>Appccelerate</tags>
-	<frameworkAssemblies>" +
+    <frameworkAssemblies>" +
                 (this.frameworkAssemblies.Any() ?
                      this.frameworkAssemblies
                          .Select(a => "<frameworkAssembly assemblyName=\"" + a.Item1 + "\" targetFramework=\"" + a.Item2 + "\" />")

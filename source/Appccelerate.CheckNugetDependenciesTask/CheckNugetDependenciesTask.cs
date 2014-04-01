@@ -22,26 +22,28 @@ namespace Appccelerate.CheckNugetDependenciesTask
     using System.Collections.Generic;
     using System.Linq;
     using System.Xml.Linq;
+    using Appccelerate.CheckNugetDependenciesTask.Annotations;
     using Microsoft.Build.Framework;
     using Microsoft.Build.Utilities;
 
     public class CheckNugetDependenciesTask : Task
     {
         [Required]
+        [UsedImplicitly]
         public string ProjectFileFullPath { get; set; }
 
         [Required]
+        [UsedImplicitly]
         public string NuspecFileFullPath { get; set; }
 
         [Required]
+        [UsedImplicitly]
         public string PackagesConfigFullPath { get; set; }
 
         public override bool Execute()
         {
             try
             {
-
-
                 if (string.IsNullOrEmpty(this.ProjectFileFullPath))
                 {
                     this.WriteError("ProjectFileFullPath is not set.");
@@ -78,7 +80,6 @@ namespace Appccelerate.CheckNugetDependenciesTask
                 this.WriteInfo("done checking nuget package dependencies. Found " + violations.Count() + " violations.");
 
                 return !violations.Any();
-
             }
             catch (Exception exception)
             {
