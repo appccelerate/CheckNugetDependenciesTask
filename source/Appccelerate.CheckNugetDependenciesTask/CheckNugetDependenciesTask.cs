@@ -68,14 +68,16 @@ namespace Appccelerate.CheckNugetDependenciesTask
 
                 var verifier = new Verifier(new VersionChecker());
 
-                IEnumerable<Violation> violations = verifier.Verify(project, nuspec, packages);
+                List<Violation> violations = verifier.Verify(project, nuspec, packages).ToList();
 
                 foreach (Violation violation in violations)
                 {
                     this.WriteError(violation.Message);
                 }
 
-                return violations.Any();
+                this.WriteInfo("done checking nuget package dependencies. Found " + violations.Count() + " violations.");
+
+                return !violations.Any();
 
             }
             catch (Exception exception)
