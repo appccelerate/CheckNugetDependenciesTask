@@ -18,59 +18,74 @@
 
 namespace Appccelerate.CheckNugetDependenciesTask
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Xml.Linq;
+    using Appccelerate.CheckNugetDependenciesTask.Annotations;
     using Microsoft.Build.Framework;
     using Microsoft.Build.Utilities;
 
     public class CheckNugetDependenciesTask : Task
     {
         [Required]
+        [UsedImplicitly]
         public string ProjectFileFullPath { get; set; }
 
         [Required]
+        [UsedImplicitly]
         public string NuspecFileFullPath { get; set; }
 
         [Required]
+        [UsedImplicitly]
         public string PackagesConfigFullPath { get; set; }
 
         public override bool Execute()
         {
-            if (string.IsNullOrEmpty(this.ProjectFileFullPath))
+            try
             {
-                this.WriteError("ProjectFileFullPath is not set.");
+                if (string.IsNullOrEmpty(this.ProjectFileFullPath))
+                {
+                    this.WriteError("ProjectFileFullPath is not set.");
+                    return false;
+                }
+
+                if (string.IsNullOrEmpty(this.NuspecFileFullPath))
+                {
+                    this.WriteError("NuspecFileFullPath is not set.");
+                    return false;
+                }
+
+                if (string.IsNullOrEmpty(this.PackagesConfigFullPath))
+                {
+                    this.WriteError("PackagesConfigFullPath is not set.");
+                    return false;
+                }
+
+                this.WriteInfo("checking nuspec `" + this.NuspecFileFullPath + "` and project file `" + this.ProjectFileFullPath + "`");
+
+                XDocument nuspec = this.ReadXmlFile(this.NuspecFileFullPath);
+                XDocument project = this.ReadXmlFile(this.ProjectFileFullPath);
+                XDocument packages = this.ReadXmlFile(this.PackagesConfigFullPath);
+
+                var verifier = new Verifier(new VersionChecker());
+
+                List<Violation> violations = verifier.Verify(project, nuspec, packages).ToList();
+
+                foreach (Violation violation in violations)
+                {
+                    this.WriteError(violation.Message);
+                }
+
+                this.WriteInfo("done checking nuget package dependencies. Found " + violations.Count() + " violations.");
+
+                return !violations.Any();
+            }
+            catch (Exception exception)
+            {
+                this.WriteError(exception.ToString());
                 return false;
             }
-
-            if (string.IsNullOrEmpty(this.NuspecFileFullPath))
-            {
-                this.WriteError("NuspecFileFullPath is not set.");
-                return false;
-            }
-
-            if (string.IsNullOrEmpty(this.PackagesConfigFullPath))
-            {
-                this.WriteError("PackagesConfigFullPath is not set.");
-                return false;
-            }
-
-            this.WriteInfo("checking nuspec `" + this.NuspecFileFullPath + "` and project file `" + this.ProjectFileFullPath + "`");
-
-            XDocument nuspec = this.ReadXmlFile(this.NuspecFileFullPath);
-            XDocument project = this.ReadXmlFile(this.ProjectFileFullPath);
-            XDocument packages = this.ReadXmlFile(this.PackagesConfigFullPath);
-
-            var verifier = new Verifier(new VersionChecker());
-
-            IEnumerable<Violation> violations = verifier.Verify(project, nuspec, packages);
-
-            foreach (Violation violation in violations)
-            {
-                this.WriteError(violation.Message);
-            }
-
-            return violations.Any();
         }
 
         protected virtual XDocument ReadXmlFile(string path)

@@ -11,7 +11,7 @@
     <AssemblyName>Appccelerate.CheckNugetDependenciesTask</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <FodyPath>..\packages\Fody.1.15.0.0</FodyPath>
+    <CheckNugetDependenciesTask_Enabled>false</CheckNugetDependenciesTask_Enabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,6 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CheckNugetDependenciesTask.cs" />
+    <Compile Include="Properties\Annotations.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\GlobalAssemblyInfo.cs" />
     <Compile Include="Verifier.cs" />
@@ -55,7 +58,6 @@
   <ItemGroup>
     <None Include="Appccelerate.Public.snk" />
     <None Include="Appccelerate.snk" />
-    <None Include="Fody.targets" />
     <None Include="NuGet.config" />
     <None Include="packages.config" />
     <None Include="Settings.stylecop" />
@@ -74,11 +76,18 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\GitFlowVersionTask.0.19.0\Build\GitFlowVersionTask.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitFlowVersionTask.0.19.0\Build\GitFlowVersionTask.targets'))" />
     <Error Condition="!Exists('..\packages\StyleCop.MSBuild.4.7.48.2\build\StyleCop.MSBuild.Targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\StyleCop.MSBuild.4.7.48.2\build\StyleCop.MSBuild.Targets'))" />
-    <Error Condition="!Exists('..\packages\Appccelerate.Development.0.27\build\Appccelerate.development.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Appccelerate.Development.0.27\build\Appccelerate.development.targets'))" />
+    <Error Condition="!Exists('..\packages\Appccelerate.CheckHintPathTask.1.4.0\build\Appccelerate.CheckHintPathTask.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Appccelerate.CheckHintPathTask.1.4.0\build\Appccelerate.CheckHintPathTask.targets'))" />
+    <Error Condition="!Exists('..\packages\Appccelerate.Development.0.34\build\Appccelerate.development.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Appccelerate.Development.0.34\build\Appccelerate.development.targets'))" />
+    <Error Condition="!Exists('..\packages\Appccelerate.CheckNugetDependenciesTask.0.2.0\build\Appccelerate.CheckNugetDependenciesTask.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Appccelerate.CheckNugetDependenciesTask.0.2.0\build\Appccelerate.CheckNugetDependenciesTask.targets'))" />
+    <Error Condition="!Exists('..\packages\Appccelerate.Development.ProductionCode.0.34\build\Appccelerate.development.ProductionCode.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Appccelerate.Development.ProductionCode.0.34\build\Appccelerate.development.ProductionCode.targets'))" />
+    <Error Condition="!Exists('..\packages\Fody.1.22.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.1.22.1\build\Fody.targets'))" />
   </Target>
   <Import Project="..\packages\StyleCop.MSBuild.4.7.48.2\build\StyleCop.MSBuild.Targets" Condition="Exists('..\packages\StyleCop.MSBuild.4.7.48.2\build\StyleCop.MSBuild.Targets')" />
-  <Import Project="..\packages\Appccelerate.Development.0.27\build\Appccelerate.development.targets" Condition="Exists('..\packages\Appccelerate.Development.0.27\build\Appccelerate.development.targets')" />
-  <Import Project="Fody.targets" />
+  <Import Project="..\packages\Appccelerate.CheckHintPathTask.1.4.0\build\Appccelerate.CheckHintPathTask.targets" Condition="Exists('..\packages\Appccelerate.CheckHintPathTask.1.4.0\build\Appccelerate.CheckHintPathTask.targets')" />
+  <Import Project="..\packages\Appccelerate.Development.0.34\build\Appccelerate.development.targets" Condition="Exists('..\packages\Appccelerate.Development.0.34\build\Appccelerate.development.targets')" />
+  <Import Project="..\packages\Appccelerate.CheckNugetDependenciesTask.0.2.0\build\Appccelerate.CheckNugetDependenciesTask.targets" Condition="Exists('..\packages\Appccelerate.CheckNugetDependenciesTask.0.2.0\build\Appccelerate.CheckNugetDependenciesTask.targets')" />
+  <Import Project="..\packages\Appccelerate.Development.ProductionCode.0.34\build\Appccelerate.development.ProductionCode.targets" Condition="Exists('..\packages\Appccelerate.Development.ProductionCode.0.34\build\Appccelerate.development.ProductionCode.targets')" />
+  <Import Project="..\packages\Fody.1.22.1\build\Fody.targets" Condition="Exists('..\packages\Fody.1.22.1\build\Fody.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
