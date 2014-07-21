@@ -171,5 +171,32 @@ namespace Appccelerate.CheckNugetDependenciesTask
 
             result.Should().BeEquivalentTo(Verifier.CreateVersionMismatchViolation(NugetReference, VersionCheckerErrorMessage));
         }
+
+        [Fact]
+        public void Succeeds_WhenPackageIsMarkedAsDevelopmentDependency()
+        {
+            const string NugetReference = "Appccelerate.Fundamentals";
+            const string ReferenceVersion = "3.0";
+
+            XDocument nuspec = NuspecBuilder
+                .Create()
+                    .AsDevelopmentDependency()
+                .Build();
+
+            XDocument project = ProjectBuilder
+                .Create()
+                    .WithNugetReferences()
+                        .AddNugetReference(NugetReference)
+                .Build();
+
+            XDocument packagesConfig = PackageConfigBuilder
+                .Create()
+                    .AddReference(NugetReference, ReferenceVersion)
+                .Build();
+
+            IEnumerable<Violation> result = this.testee.Verify(project, nuspec, packagesConfig);
+
+            result.Should().BeEmpty();
+        }
     }
 }

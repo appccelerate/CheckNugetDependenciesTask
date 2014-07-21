@@ -49,6 +49,11 @@ namespace Appccelerate.CheckNugetDependenciesTask
 
         public IEnumerable<Violation> Verify(XDocument project, XDocument nuspec, XDocument packages)
         {
+            if (this.IsDevelopmentDependency(nuspec))
+            {
+                yield break;
+            }
+
             IEnumerable<string> neededFrameworkReferences = this.GetNeededFrameworkReferences(project);
             IEnumerable<Tuple<string, string>> neededNuspecReferences = this.GetNeededNugetReferences(packages);
 
@@ -85,6 +90,13 @@ namespace Appccelerate.CheckNugetDependenciesTask
                     yield return CreateMissingNugetReferenceViolation(neededNugetReference.Item1);
                 }
             }
+        }
+
+        private bool IsDevelopmentDependency(XDocument nuspec)
+        {
+            var ns = XNamespace.Get("http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd");
+
+            return nuspec.Descendants(ns + "developmentDependency").Any(dd => dd.Value == "true");
         }
 
         private IEnumerable<string> GetNeededFrameworkReferences(XDocument project)

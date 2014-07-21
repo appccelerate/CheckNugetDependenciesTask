@@ -28,6 +28,8 @@ namespace Appccelerate.CheckNugetDependenciesTask
         private readonly List<Tuple<string, string>> frameworkAssemblies = new List<Tuple<string, string>>();
         private readonly List<Tuple<string, string>> nugetDependencies = new List<Tuple<string, string>>();
 
+        private bool developmentDependency;
+
         public static INuspecBuilder Create()
         {
             return new NuspecBuilder();
@@ -55,6 +57,12 @@ namespace Appccelerate.CheckNugetDependenciesTask
             return this;
         }
 
+        public INuspecBuilder AsDevelopmentDependency()
+        {
+            this.developmentDependency = true;
+            return this;
+        }
+
         public XDocument Build()
         {
             return XDocument.Parse(
@@ -74,8 +82,9 @@ namespace Appccelerate.CheckNugetDependenciesTask
     <description>description</description>
     <releaseNotes>notes</releaseNotes>
     <copyright>Copyright 2012-2014</copyright>
-    <tags>Appccelerate</tags>
-    <frameworkAssemblies>" +
+    <tags>Appccelerate</tags>" +
+    (this.developmentDependency ? "<developmentDependency>true</developmentDependency>" : string.Empty) +
+    "<frameworkAssemblies>" +
                 (this.frameworkAssemblies.Any() ?
                      this.frameworkAssemblies
                          .Select(a => "<frameworkAssembly assemblyName=\"" + a.Item1 + "\" targetFramework=\"" + a.Item2 + "\" />")
@@ -107,6 +116,8 @@ namespace Appccelerate.CheckNugetDependenciesTask
         INugetDependencies WithNugetDependencies();
 
         XDocument Build();
+
+        INuspecBuilder AsDevelopmentDependency();
     }
 
     public interface IFrameworkAssemblies : INuspecBuilder
