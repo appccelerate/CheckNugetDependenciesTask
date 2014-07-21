@@ -18,8 +18,8 @@
     <dependencies/>	
   </metadata>
   <files>
-    <file src="Appccelerate.CheckNugetDependenciesTask\bin\Release\Appccelerate.CheckNugetDependenciesTask.dll" target="" />
-    <file src="Appccelerate.CheckNugetDependenciesTask\bin\Release\Appccelerate.CheckNugetDependenciesTask.pdb" target="" />
+    <file src="bin\Release\Appccelerate.CheckNugetDependenciesTask.dll" target="" />
+    <file src="bin\Release\Appccelerate.CheckNugetDependenciesTask.pdb" target="" />
     <file src="Appccelerate.CheckNugetDependenciesTask.targets" target="build" />
   </files>  
 </package>

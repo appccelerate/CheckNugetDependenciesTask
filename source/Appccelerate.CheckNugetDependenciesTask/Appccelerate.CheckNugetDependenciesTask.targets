@@ -7,6 +7,10 @@
       $(MSBuildProjectFullPath)
     </CheckNugetDependenciesTask_ProjectFileFullPath>
     <CheckNugetDependenciesTask_NuspecFileFullPath Condition="$(CheckNugetDependenciesTask_NuspecFileFullPath) == ''">
+      $(MSBuildProjectDirectory)\$(MSBuildProjectName).nuspec
+    </CheckNugetDependenciesTask_NuspecFileFullPath>
+    <!--for old structure -->
+    <CheckNugetDependenciesTask_NuspecFileFullPath Condition="$(CheckNugetDependenciesTask_NuspecFileFullPath) == ''">
       $(MSBuildProjectDirectory)..\..\$(MSBuildProjectName).nuspec
     </CheckNugetDependenciesTask_NuspecFileFullPath>
     <CheckNugetDependenciesTask_PackagesConfigFullPath Condition="$(CheckNugetDependenciesTask_PackagesConfigFullPath) == ''">

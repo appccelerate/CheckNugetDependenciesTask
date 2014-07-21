@@ -60,6 +60,8 @@
     <Compile Include="XmlExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="appccelerate.checknugetdependenciestask.nuspec" />
+    <None Include="Appccelerate.CheckNugetDependenciesTask.targets" />
     <None Include="NuGet.config" />
     <None Include="packages.config" />
     <None Include="Settings.stylecop" />
