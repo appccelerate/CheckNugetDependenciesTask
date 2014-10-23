@@ -19,8 +19,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <BuildDependsOn>$(BuildDependsOn);CheckNugetDependencies<BuildDependsOn>
-    <RebuildDependsOn>$(RebuildDependsOn);CheckNugetDependencies<RebuildDependsOn>
+    <BuildDependsOn>$(BuildDependsOn);CheckNugetDependencies</BuildDependsOn>
+    <RebuildDependsOn>$(RebuildDependsOn);CheckNugetDependencies</RebuildDependsOn>
   </PropertyGroup>
   
   <UsingTask
