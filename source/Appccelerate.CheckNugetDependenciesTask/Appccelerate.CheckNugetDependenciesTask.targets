@@ -18,11 +18,16 @@
     </CheckNugetDependenciesTask_PackagesConfigFullPath>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <BuildDependsOn>$(BuildDependsOn);CheckNugetDependencies<BuildDependsOn>
+    <RebuildDependsOn>$(RebuildDependsOn);CheckNugetDependencies<RebuildDependsOn>
+  </PropertyGroup>
+  
   <UsingTask
     TaskName="CheckNugetDependenciesTask"
     AssemblyFile="$(MSBuildThisFileDirectory)..\Appccelerate.CheckNugetDependenciesTask.dll" />
 
-  <Target Name="AfterBuild">
+  <Target Name="CheckNugetDependencies">
     <CheckNugetDependenciesTask
         Condition="'$(Configuration)' == 'Release' And $(CheckNugetDependenciesTask_Enabled) == true"
         NuspecFileFullPath="$(CheckNugetDependenciesTask_NuspecFileFullPath)"
