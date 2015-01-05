@@ -31,7 +31,7 @@ namespace Appccelerate.CheckNugetDependenciesTask
                 return VersionCheckerResult.CreateSuccessful();
             }
 
-            Regex regex = new Regex(@"\[(?<from>.*),(?<to>.*)\)");
+            Regex regex = new Regex(@"\[(?<version>[0-9\.]*)\]");
 
             var match = regex.Match(nugetVersion);
 
@@ -40,16 +40,15 @@ namespace Appccelerate.CheckNugetDependenciesTask
                 return VersionCheckerResult.CreateFailed(FormatUnsupportedNugetVersion(nugetVersion));
             }
 
-            Version reference = Version.Parse(referenceVersion);
+            Version reference = Version.Parse(ExpandToFullVersion(referenceVersion));
 
             try
             {
-                Version from = Version.Parse(match.Groups["from"].Value);
-                Version to = Version.Parse(match.Groups["to"].Value);
-
-                if (from > reference || reference >= to)
+                Version exactVersion = Version.Parse(ExpandToFullVersion(match.Groups["version"].Value));
+                
+                if (exactVersion != reference)
                 {
-                    return VersionCheckerResult.CreateFailed(referenceVersion + " is outside " + nugetVersion);
+                    return VersionCheckerResult.CreateFailed(referenceVersion + " is not equal to " + exactVersion);
                 }
             }
             catch (ArgumentException)
@@ -62,7 +61,17 @@ namespace Appccelerate.CheckNugetDependenciesTask
 
         public static string FormatUnsupportedNugetVersion(string nugetVersion)
         {
-            return "unsupported nuget version format: `" + nugetVersion + "`. Only `[from,to)` with from and to containing at least major and minor version (e.g. 1.2) is currently supported";
+            return "unsupported nuget version format: `" + nugetVersion + "`. Only `[version]` (e.g. [1.2]) with at least major and minor version parts is supported.";
+        }
+
+        private static string ExpandToFullVersion(string version)
+        {
+            while (version.Count(c => c == '.') < 3)
+            {
+                version += ".0";
+            }
+
+            return version;
         }
     }
 }

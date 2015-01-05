@@ -31,15 +31,17 @@ namespace Appccelerate.CheckNugetDependenciesTask
         }
 
         [Theory]
-        [InlineData("[1.0,2.0)", "0.99", false, "0.99 is outside [1.0,2.0)")]
-        [InlineData("[1.0,2.0)", "1.0.0.0", true, null)]
-        [InlineData("[1.0,2.0)", "1.5", true, null)]
-        [InlineData("[1.0,2.0)", "1.999.999.999", true, null)]
-        [InlineData("[1.0,2.0)", "2.0.0.0", false, "2.0.0.0 is outside [1.0,2.0)")]
-        [InlineData("1.0", "2.0.0.0", false, "unsupported nuget version format: `1.0`. Only `[from,to)` with from and to containing at least major and minor version (e.g. 1.2) is currently supported")]
-        [InlineData("[1.0,2.0]", "2.0.0.0", false, "unsupported nuget version format: `[1.0,2.0]`. Only `[from,to)` with from and to containing at least major and minor version (e.g. 1.2) is currently supported")]
-        [InlineData("[1,2)", "2.0.0.0", false, "unsupported nuget version format: `[1,2)`. Only `[from,to)` with from and to containing at least major and minor version (e.g. 1.2) is currently supported")]
-        public void MatchesVersion(string nugetVersion, string referenceVersion, bool match, string errorMessage)
+        [InlineData("[1.0.0]", "1.0", true, null)]
+        [InlineData("[3.5]", "3.5", true, null)]
+        [InlineData("[3.5]", "3.5.0", true, null)]
+        [InlineData("[3.5]", "3.5.0.0", true, null)]
+        [InlineData("[1]", "1.0", true, null)]
+        [InlineData("[1.0]", "1.1.0.0", false, "1.1.0.0 is not equal to 1.0.0.0")]
+        [InlineData("3.5.1", "2.0.0.0", false, "unsupported nuget version format: `3.5.1`. Only `[version]` (e.g. [1.2]) with at least major and minor version parts is supported.")]
+        [InlineData("[1.0,2.0)", "2.0.0.0", false, "unsupported nuget version format: `[1.0,2.0)`. Only `[version]` (e.g. [1.2]) with at least major and minor version parts is supported.")]
+        [InlineData("[1.0,2.0]", "2.0.0.0", false, "unsupported nuget version format: `[1.0,2.0]`. Only `[version]` (e.g. [1.2]) with at least major and minor version parts is supported.")]
+        [InlineData("[1,2)", "2.0.0.0", false, "unsupported nuget version format: `[1,2)`. Only `[version]` (e.g. [1.2]) with at least major and minor version parts is supported.")]
+        public void MatchesExactVersion(string nugetVersion, string referenceVersion, bool match, string errorMessage)
         {
             VersionCheckerResult result = this.testee.MatchVersion(referenceVersion, nugetVersion);
 
