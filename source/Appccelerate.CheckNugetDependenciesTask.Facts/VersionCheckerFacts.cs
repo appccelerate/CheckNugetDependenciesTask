@@ -19,6 +19,7 @@
 namespace Appccelerate.CheckNugetDependenciesTask
 {
     using FluentAssertions;
+    using Xunit;
     using Xunit.Extensions;
 
     public class VersionCheckerFacts
@@ -47,6 +48,17 @@ namespace Appccelerate.CheckNugetDependenciesTask
 
             result.Success.Should().Be(match);
             result.ErrorMessage.Should().Be(errorMessage);
+        }
+
+        [Fact]
+        public void InvalidReferenceVersionFormat()
+        {
+            const string ReferenceVersion = "invalid";
+
+            VersionCheckerResult result = this.testee.MatchVersion(ReferenceVersion, "[1.0]");
+
+            result.Success.Should().Be(false);
+            result.ErrorMessage.Should().Be("unable to parse version of reference: `" + ReferenceVersion + "`.");
         }
     }
 }

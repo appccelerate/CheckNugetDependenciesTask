@@ -40,26 +40,24 @@ namespace Appccelerate.CheckNugetDependenciesTask
                 return VersionCheckerResult.CreateFailed(FormatUnsupportedNugetVersion(nugetVersion));
             }
 
-            Version reference = Version.Parse(ExpandToFullVersion(referenceVersion));
-
-            try
+            Version reference;
+            if (!Version.TryParse(ExpandToFullVersion(referenceVersion), out reference))
             {
-                Version exactVersion = Version.Parse(ExpandToFullVersion(match.Groups["version"].Value));
-                
-                if (exactVersion != reference)
-                {
-                    return VersionCheckerResult.CreateFailed(referenceVersion + " is not equal to " + exactVersion);
-                }
+                return VersionCheckerResult.CreateFailed("unable to parse version of reference: `" + referenceVersion + "`.");
             }
-            catch (ArgumentException)
+
+            Version exactVersion;
+            if (!Version.TryParse(ExpandToFullVersion(match.Groups["version"].Value), out exactVersion))
             {
                 return VersionCheckerResult.CreateFailed(FormatUnsupportedNugetVersion(nugetVersion));
             }
-        
-            return VersionCheckerResult.CreateSuccessful();
+
+            return exactVersion != reference ? 
+                VersionCheckerResult.CreateFailed(referenceVersion + " is not equal to " + exactVersion) : 
+                VersionCheckerResult.CreateSuccessful();
         }
 
-        public static string FormatUnsupportedNugetVersion(string nugetVersion)
+        private static string FormatUnsupportedNugetVersion(string nugetVersion)
         {
             return "unsupported nuget version format: `" + nugetVersion + "`. Only `[version]` (e.g. [1.2]) with at least major and minor version parts is supported.";
         }
