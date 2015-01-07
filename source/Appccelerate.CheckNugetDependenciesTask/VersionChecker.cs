@@ -31,7 +31,7 @@ namespace Appccelerate.CheckNugetDependenciesTask
                 return VersionCheckerResult.CreateSuccessful();
             }
 
-            Regex regex = new Regex(@"\[(?<version>[0-9\.]*)\]");
+            Regex regex = new Regex(@"\[(?<from>.*),(?<to>.*)\)");
 
             var match = regex.Match(nugetVersion);
 
@@ -46,20 +46,34 @@ namespace Appccelerate.CheckNugetDependenciesTask
                 return VersionCheckerResult.CreateFailed("unable to parse version of reference: `" + referenceVersion + "`.");
             }
 
-            Version exactVersion;
-            if (!Version.TryParse(ExpandToFullVersion(match.Groups["version"].Value), out exactVersion))
+            Version from;
+            if (!Version.TryParse(ExpandToFullVersion(match.Groups["from"].Value), out from))
             {
                 return VersionCheckerResult.CreateFailed(FormatUnsupportedNugetVersion(nugetVersion));
             }
 
-            return exactVersion != reference ? 
-                VersionCheckerResult.CreateFailed(referenceVersion + " is not equal to " + exactVersion) : 
-                VersionCheckerResult.CreateSuccessful();
+            Version to;
+            if (!Version.TryParse(ExpandToFullVersion(match.Groups["to"].Value), out to))
+            {
+                return VersionCheckerResult.CreateFailed(FormatUnsupportedNugetVersion(nugetVersion));
+            }
+
+            if (reference < from)
+            {
+                return VersionCheckerResult.CreateFailed("reference version `" + referenceVersion + "` is lower than lower bound of nuget version `" + nugetVersion + "`.");
+            }
+
+            if (reference != from)
+            {
+                return VersionCheckerResult.CreateFailed("lower bound of nuget version `" + nugetVersion + "` should equal reference version `" + referenceVersion + "` (otherwise there might be build problems due to different referenced versions of the dependency).");
+            }
+
+            return VersionCheckerResult.CreateSuccessful();
         }
 
         private static string FormatUnsupportedNugetVersion(string nugetVersion)
         {
-            return "unsupported nuget version format: `" + nugetVersion + "`. Only `[version]` (e.g. [1.2]) with at least major and minor version parts is supported.";
+            return "unsupported nuget version format: `" + nugetVersion + "`. Only `[from,to)` with from and to containing at least major version is currently supported.";
         }
 
         private static string ExpandToFullVersion(string version)
